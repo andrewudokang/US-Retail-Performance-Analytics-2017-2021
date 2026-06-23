@@ -136,7 +136,18 @@ The following preprocessing steps were performed:
 2. Removed commas and whitespace from Unit Price and Unit Cost columns.
 3. Converted text-based numerical fields into decimal data types.
 4. Validated data structure before analysis.
+```sql
+-- Removing the whitespaces and commas from the unit price and unit cost so that the datatype can be changed
+Update `sales order_usa`
+Set 
+`Unit Price` = trim(replace(replace(`Unit Price`,'$',''),',','')),
+`Unit Cost` = trim(replace(replace(`Unit Cost`,'$',''),',',''));
 
+-- Changing the datatype from text to decimal
+Alter table `sales order_usa`
+Modify column `Unit Price` decimal(19,2),
+Modify column `Unit Cost` decimal(19,2);
+```
 ---
 
 # 🧮 SQL Concepts Demonstrated
